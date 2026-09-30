@@ -1,0 +1,764 @@
+/* ==========================================================================
+   Body Scent — Premium Minimal Theme
+   โทนขาว-ครีม-เบจเข้ม / accent ทองบรอนซ์อ่อน / serif ผสม sans-serif
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;500&family=Noto+Serif+Thai:wght@300;400;500&display=swap");
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* พื้นหลังและข้อความ */
+  --color-white: #fdfcfa;
+  --color-cream: #f6f1e8;
+  --color-cream-deep: #ece3d3;
+  --color-beige: #c9b89c;
+  --color-beige-dark: #6e5f4b;
+  --color-ink: #2b2620;
+  --color-ink-soft: #5b5348;
+  --color-line: #d9cfbd;
+
+  /* accent ทอง/บรอนซ์อ่อน */
+  --color-accent: #a98a5a;
+  --color-accent-dark: #8a6d40;
+
+  /* สีประจำ mood (ใช้แตะเบาๆ เท่านั้น) */
+  --mood-fresh: #3f5f4a;
+  --mood-sweet: #7d5a8c;
+  --mood-confident: #3f4f60;
+  --mood-romance: #b86b6b;
+  --mood-color: var(--color-accent); /* ค่าเริ่มต้น เมื่อไม่มี data-mood */
+
+  /* ตัวอักษร */
+  --font-display: "Cormorant Garamond", "Noto Serif Thai", Georgia, serif;
+  --font-serif: "Noto Serif Thai", Georgia, "Times New Roman", serif;
+  --font-sans: "Noto Sans Thai", "Helvetica Neue", Arial, sans-serif;
+
+  /* ระยะห่าง */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-7: 9rem;
+
+  --container: 1120px;
+  --container-narrow: 680px;
+  --radius: 2px;
+  --border: 1px solid var(--color-line);
+  --transition: 0.25s ease;
+}
+
+/* mood ผูกกับ attribute เช่น <article data-mood="fresh"> */
+[data-mood="fresh"] { --mood-color: var(--mood-fresh); }
+[data-mood="sweet"] { --mood-color: var(--mood-sweet); }
+[data-mood="confident"] { --mood-color: var(--mood-confident); }
+[data-mood="romance"] { --mood-color: var(--mood-romance); }
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--color-ink);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-accent-dark);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--color-cream-deep);
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.2; }
+h2 { font-size: clamp(1.8rem, 3.2vw, 2.4rem); }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.1rem; }
+
+p {
+  margin: 0 0 var(--space-3);
+  color: var(--color-ink-soft);
+}
+
+.lead {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.95;
+  color: var(--color-ink-soft);
+}
+
+.text-center { text-align: center; }
+.text-muted { color: var(--color-beige-dark); }
+.price {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+.container-narrow {
+  max-width: var(--container-narrow);
+}
+
+.section {
+  padding: var(--space-6) 0;
+}
+
+.section-cream {
+  background: var(--color-cream);
+}
+
+.section-header {
+  max-width: var(--container-narrow);
+  margin: 0 auto var(--space-5);
+  text-align: center;
+}
+
+/* เส้นทองบางๆ ใต้หัวข้อ */
+.divider {
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin: var(--space-3) auto;
+  background: var(--color-accent);
+  border: 0;
+}
+
+/* จุดสี mood เล็กๆ ใต้หัวข้อ/ข้างชื่อ */
+.mood-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mood-color);
+  vertical-align: middle;
+}
+
+.mood-line {
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: var(--space-2) 0;
+  background: var(--mood-color);
+}
+
+.mood-line.center { margin-left: auto; margin-right: auto; }
+
+/* --------------------------------------------------------------------------
+   5. Header & navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(253, 252, 250, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: var(--border);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 76px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--color-ink);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  padding: var(--space-7) 0 var(--space-6);
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
+  text-align: center;
+}
+
+.hero h1 {
+  max-width: 14ch;
+  margin: 0 auto var(--space-3);
+}
+
+.hero .lead {
+  max-width: 46ch;
+  margin: 0 auto var(--space-4);
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 2.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.btn:hover {
+  color: var(--color-white);
+  background: var(--color-ink);
+}
+
+.btn-primary {
+  color: var(--color-white);
+  background: var(--color-ink);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: var(--color-white);
+}
+
+.btn-accent {
+  color: var(--color-accent-dark);
+  border-color: var(--color-accent);
+}
+
+.btn-accent:hover {
+  color: var(--color-white);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.btn-block { display: block; width: 100%; }
+.btn-small { padding: 0.6rem 1.4rem; font-size: 0.85rem; }
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   8. Mood filter (แท็บกรองสินค้า)
+   -------------------------------------------------------------------------- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-3);
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+.filter-btn {
+  padding: 0.4rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.filter-btn:hover { color: var(--color-ink); }
+
+.filter-btn.active,
+.filter-btn[aria-pressed="true"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   9. Product grid & cards
+   -------------------------------------------------------------------------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-5) var(--space-4);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border: var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition);
+}
+
+.product-card:hover {
+  border-color: var(--color-accent);
+}
+
+.product-card .thumb {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-cream);
+  border-bottom: var(--border);
+}
+
+.product-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-card .body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--space-3);
+}
+
+.product-card .meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: var(--space-1);
+  font-size: 0.85rem;
+  color: var(--color-beige-dark);
+}
+
+.product-card h3 {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.product-card p {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.product-card .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: var(--border);
+}
+
+/* Badge เล็กๆ เช่น "สเปรย์" "โรลออน" "30ml" */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--color-beige-dark);
+  border: var(--border);
+  border-radius: 999px;
+}
+
+/* --------------------------------------------------------------------------
+   10. Mood cards (การ์ดแนะนำกลิ่น 4 โทน)
+   -------------------------------------------------------------------------- */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.mood-card {
+  padding: var(--space-4) var(--space-3);
+  background: var(--color-white);
+  border: var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.mood-card .mood-dot {
+  width: 10px;
+  height: 10px;
+  margin-bottom: var(--space-2);
+}
+
+.mood-card h3 { margin-bottom: var(--space-1); }
+.mood-card p { margin-bottom: 0; font-size: 0.92rem; }
+
+/* --------------------------------------------------------------------------
+   11. Two-column feature / product detail
+   -------------------------------------------------------------------------- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.split img {
+  width: 100%;
+  border: var(--border);
+}
+
+/* --------------------------------------------------------------------------
+   12. Forms
+   -------------------------------------------------------------------------- */
+.form-group {
+  margin-bottom: var(--space-3);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-soft);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--color-ink);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  transition: border-color var(--transition);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--color-beige);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-dark);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-beige);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.6rem;
+  accent-color: var(--color-accent-dark);
+}
+
+.form-card {
+  padding: var(--space-4);
+  background: var(--color-white);
+  border: var(--border);
+  border-radius: var(--radius);
+}
+
+.form-error {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--mood-romance);
+}
+
+/* --------------------------------------------------------------------------
+   13. Order summary & tables (order / admin)
+   -------------------------------------------------------------------------- */
+.summary {
+  padding: var(--space-3);
+  background: var(--color-cream);
+  border: var(--border);
+  border-radius: var(--radius);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.95rem;
+}
+
+.summary-row:last-child {
+  border-bottom: 0;
+}
+
+.summary-total {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-line);
+}
+
+th {
+  font-weight: 500;
+  color: var(--color-ink);
+  background: var(--color-cream);
+  white-space: nowrap;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--color-cream); }
+
+/* --------------------------------------------------------------------------
+   14. Notices & thank-you
+   -------------------------------------------------------------------------- */
+.notice {
+  padding: var(--space-3);
+  font-size: 0.95rem;
+  color: var(--color-ink-soft);
+  background: var(--color-cream);
+  border-left: 2px solid var(--color-accent);
+}
+
+.empty-state {
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  color: var(--color-beige-dark);
+}
+
+/* --------------------------------------------------------------------------
+   15. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  padding: var(--space-5) 0 var(--space-4);
+  color: var(--color-cream-deep);
+  background: var(--color-ink);
+  text-align: center;
+}
+
+.site-footer .logo {
+  color: var(--color-cream);
+}
+
+.site-footer p,
+.site-footer a {
+  font-size: 0.88rem;
+  color: var(--color-beige);
+}
+
+.site-footer a:hover {
+  color: var(--color-cream);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   16. Utilities
+   -------------------------------------------------------------------------- */
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mb-0 { margin-bottom: 0; }
+.mb-4 { margin-bottom: var(--space-4); }
+.hidden { display: none !important; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   17. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .section { padding: var(--space-5) 0; }
+  .hero { padding: var(--space-6) 0 var(--space-5); }
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --space-4: 2rem;
+    --space-5: 3rem;
+    --space-6: 4rem;
+    --space-7: 5rem;
+  }
+
+  .site-header .container {
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-1);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+
+  .nav {
+    gap: var(--space-3);
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .form-card {
+    padding: var(--space-3);
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

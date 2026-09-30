@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สั่งซื้อสินค้า | Body Scent</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">BODY SCENT</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a href="index.html">หน้าแรก</a></li>
+          <li><a href="product.html">สินค้า</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-header">
+      <div class="container">
+        <h1>สั่งซื้อสินค้า</h1>
+        <span class="divider"></span>
+        <p class="lead">กรอกข้อมูลด้านล่าง เพื่อยืนยันคำสั่งซื้อของคุณ</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container-narrow">
+
+        <form id="orderForm" class="form-card">
+
+          <div class="form-group">
+            <label for="customerName">ชื่อลูกค้า</label>
+            <input type="text" id="customerName" name="customerName" placeholder="ชื่อและนามสกุล" autocomplete="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contact">เบอร์โทร / Line</label>
+            <input type="text" id="contact" name="contact" placeholder="เบอร์โทรศัพท์ หรือ Line ID" autocomplete="tel" required>
+          </div>
+
+          <div class="form-group">
+            <label for="items">รายการสินค้า</label>
+            <input type="text" id="items" name="items" placeholder="เลือกสินค้าจากหน้าสินค้า หรือพิมพ์รายการที่ต้องการ" required>
+          </div>
+
+          <div class="form-group">
+            <label for="total">จำนวนเงินรวม (บาท)</label>
+            <input type="text" id="total" name="total" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="note">หมายเหตุ</label>
+            <textarea id="note" name="note" placeholder="ที่อยู่จัดส่งหรือข้อความเพิ่มเติม (ไม่บังคับ)"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">ยืนยันสั่งซื้อ</button>
+
+        </form>
+
+        <p class="text-center mt-4"><a href="product.html" class="mood-cta">เลือกดูสินค้าเพิ่มเติม</a></p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="logo" href="index.html">BODY SCENT</a>
+      <ul class="footer-links">
+        <li><a href="index.html">หน้าแรก</a></li>
+        <li><a href="product.html">สินค้า</a></li>
+      </ul>
+      <p class="mb-0">&copy; 2026 Body Scent. สงวนลิขสิทธิ์</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
